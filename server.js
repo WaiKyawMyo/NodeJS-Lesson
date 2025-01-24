@@ -1,6 +1,7 @@
 
 const fs = require('fs')
-
+const http= require('http')
+const url = require('url')
 // // //Blocking, synchronous way
 // const textIn =fs.readFileSync('./txt/input.txt','utf-8')
 // const Textout  = `this is what we know about the avocod ${textIn}.`
@@ -8,9 +9,30 @@ const fs = require('fs')
 // console.log('File written')
 
 //Non-blocking, asynchronous way
-fs.readFile('./txt/start.txt','utf-8',(err,data1)=>{
-    fs.readFile(`./txt/${data1}.txt`,'utf-8',(err,data)=>{
-        console.log(data)
-    })
+// fs.readFile('./txt/start.txt','utf-8',(err,data1)=>{
+//     fs.readFile(`./txt/${data1}.txt`,'utf-8',(err,data)=>{
+//         console.log(data)
+//     })
+// })
+// console.log("will read file!")
+
+//SERVER
+const server = http.createServer((req,res)=>{
+    const pathName= req.url
+    if (pathName === '/'|| pathName=== '/overview'){
+        res.end("HEllo Form the OverView!")
+    }else if(pathName==='/product'){
+        res.end('This is the Product')
+    }else{
+        res.writeHead(404,{
+            "Content-type": "text/html",
+            "my-own-header": "hello-world"
+        })  
+        res.end('<h1>Page not found!</h1>')
+    }
+    
+}) 
+
+server.listen(8000,'127.0.0.1',()=>{
+    console.log("LIsting to requirests on port 8000")
 })
-console.log("will read file!")
