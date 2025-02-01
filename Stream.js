@@ -4,3 +4,4 @@ const stream = createReadStream('./')
 stream.on("data",(result)=>{
     console.log(result)
 })
+
