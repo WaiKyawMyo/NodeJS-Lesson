@@ -1,11 +1,15 @@
 const http = require('http')
+const {readFileSync}= require('fs')
+
+//get all files
+const homePage= readFileSync('./index.html')
 
 const server = http.cereateServer((req,res)=>{
     const url= req.url
     //Home page
     if(url ==="/"){
         res.writeHead(200,{'content-type': 'text/html'})
-        res.write('<h1>Home page</h1>')
+        res.write(homePage)
         res.end()
     }//About page
     else if(url==='/about'){
@@ -14,7 +18,7 @@ const server = http.cereateServer((req,res)=>{
         res.end()
     }//404
     else{
-        res.writeHead(200,{'content-type': 'text/html'})
+        res.writeHead(404,{'content-type': 'text/html'})
         res.write('<h1>page not found</h1>')
         res.end()
     }
