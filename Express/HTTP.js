@@ -2,8 +2,10 @@ const http = require('http')
 const {readFileSync}= require('fs')
 
 //get all files
-const homePage= readFileSync('./index.html')
-
+const homePage= readFileSync('./navbar-app/index.html')
+const style= readFileSync('./navbar-app/styles.css')
+const logo= readFileSync('./navbar-app/logo.svg')
+const browser= readFileSync('./navbar-app/browser-app.js')
 const server = http.cereateServer((req,res)=>{
     const url= req.url
     //Home page
@@ -11,7 +13,14 @@ const server = http.cereateServer((req,res)=>{
         res.writeHead(200,{'content-type': 'text/html'})
         res.write(homePage)
         res.end()
-    }//About page
+    }
+    //Style
+    else if(url ==="/"){
+        res.writeHead(200,{'content-type': 'text/css'})
+        res.write(style)
+        res.end()
+    }
+    //About page
     else if(url==='/about'){
         res.writeHead(200,{'content-type': 'text/html'})
         res.write('<h1>About page</h1>')
